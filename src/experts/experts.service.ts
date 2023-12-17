@@ -5,27 +5,28 @@ import UpdateExpertsDto from './dto/udpate-experts';
 
 @Injectable()
 export class ExpertsService {
-    constructor(private readonly prismaService: PrismaService) {}
+	constructor(private readonly prismaService: PrismaService) {}
 
-    async findExpertByEmail(email: string){
-        return await this.prismaService.expert.findFirst({where: { email }})
-    }
+	async findExpertByEmail(email: string) {
+		return await this.prismaService.expert.findFirst({ where: { email } });
+	}
 
-    async createExpert(data: CreateExpertsDto){
-        return await this.prismaService.expert.create({ data })
-    }
+	async createExpert(data: CreateExpertsDto) {
+		return await this.prismaService.expert.create({ data });
+	}
 
-    async findAllExperts() {
-        return await this.prismaService.expert.findMany()
-    }
+	async findAllExperts() {
+		return await this.prismaService.expert.findMany();
+	}
 
-    async findExpert(id: string) {
-        return await this.prismaService.expert.findFirst({where: { id }})
-    }
+	async findExpert(id: string) {
+		return await this.prismaService.expert.findFirst({ where: { id } });
+	}
 
-    async updateExpert(id: string, data: UpdateExpertsDto) {
-        await this.prismaService.expert.update({
-            where: {id}, data
-        })
-    }
+	async updateExpert(id: string, data: UpdateExpertsDto) {
+		await this.prismaService.expert.update({
+			where: { id },
+			data
+		});
+	}
 }
