@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { read } from 'fs';
 import { PrismaService } from 'src/database/prisma.service';
 import CreateQueueDto from './dto/create-queue';
 
