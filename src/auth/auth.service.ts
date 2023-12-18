@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt'
+import { JwtService } from '@nestjs/jwt';
 
 type Tuser = {
     id: string
@@ -11,7 +12,7 @@ type Tuser = {
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly usersService: UsersService){}
+    constructor(private readonly usersService: UsersService, private readonly jwtService: JwtService){}
 
     async validateUser(email: string, pass: string): Promise<Tuser> {
         const user = await this.usersService.findUserByEmail(email)
@@ -25,5 +26,13 @@ export class AuthService {
         }
 
         return user
+    }
+
+    async login(user: any) {
+        const payload = { id: user.id }
+
+        return {
+            acess_token: this.jwtService.sign(payload)
+        }
     }
 }

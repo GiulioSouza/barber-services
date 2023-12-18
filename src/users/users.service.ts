@@ -19,4 +19,8 @@ export class UsersService {
     async findUserByEmail(email: string) {
 		return await this.prismaService.user.findFirst({ where: { email } });
 	}
+
+    async findUserById(id: string) {
+		return await this.prismaService.user.findFirst({ where: { id } });
+	}
 }

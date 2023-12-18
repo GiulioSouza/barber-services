@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, HttpStatus, NotFoundException, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, HttpStatus, NotFoundException, Param, Patch, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { CustomersqueueService } from './customersqueue.service';
 import CreateCustomersQueueDto from './dto/create-customersqueue';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 
 @Controller('customersqueue')
 export class CustomersqueueController {
@@ -24,6 +25,7 @@ export class CustomersqueueController {
     return res.status(HttpStatus.CREATED).json(customer)
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(":id")
   async serveCustomer(@Param('id') id: string, @Res()res: Response) {
     const customer = await this.customersQueueService.findCustomer(+id)
@@ -36,6 +38,7 @@ export class CustomersqueueController {
     return res.status(HttpStatus.NO_CONTENT).send()
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(":id")
   async delete(@Param('id') id: string, @Res()res: Response) {
     const customer = await this.customersQueueService.findCustomer(+id)

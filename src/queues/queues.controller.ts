@@ -1,13 +1,15 @@
-import { BadRequestException, Body, Controller, Get, HttpStatus, NotFoundException, Post, Query, Res } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpStatus, NotFoundException, Post, Query, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { QueuesService } from './queues.service';
 import CreateQueueDto from './dto/create-queue';
 import { ExpertsService } from 'src/experts/experts.service';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 
 @Controller('queues')
 export class QueuesController {
 	constructor(private readonly queuesService: QueuesService, private readonly expertsService: ExpertsService) {}
 
+	@UseGuards(JwtAuthGuard)
 	@Post()
 	async createQueue(@Body() data: CreateQueueDto, @Res() res: Response){
 		const expert = await this.expertsService.findExpert(data.expertId)
