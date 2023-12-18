@@ -8,6 +8,7 @@ Esta API foi desenvolvida para gerenciar as operações de uma barbearia. Ela pe
 - Dotenv
 - Express
 - NestJs
+- Bcrypt
 - Jsonwebtoken
 - Passport
 - Prisma
